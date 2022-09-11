@@ -84,7 +84,6 @@ async function isLiveAtJoopTubeQueryResponseAsJSON() {
         .then(response => response.text())
         .then(result => JSON.parse(result))
         .catch(error => console.error('Error while fetching live URL!', error));
-        return result;
 }
 /**
  * Reads the JoopTubeQueryJSONResponse from the 'live' channel at jupiter.tube for live

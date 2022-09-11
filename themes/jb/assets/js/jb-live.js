@@ -64,11 +64,12 @@ async function jbLive() {
 
     return getEmbedLink(liveShow)?.toString() ?? getEmbedLink(archivedShow)?.toString();
 }
-**
- * Queries the 'live' channel at jupiter.tube for live
- * show status and sets the CSS style background-color red for #livebutton
- */
-async function doLiveHighlight() {
+/**
+  * Queries the 'live' channel at jupiter.tube for the live
+  * show status and returns the result as JSON
+  * @returns { "total": int_livecount, "data":[{...show data...}] } 
+  */
+async function isLiveAtJoopTubeQueryResponseAsJSON() {
     const headers = new Headers({
         "Accept": "application/json"
     });
@@ -82,7 +83,18 @@ async function doLiveHighlight() {
     fetch(JoopTubeQuery({ isLive: true }), requestOptions)
         .then(response => response.text())
         .then(result => JSON.parse(result))
-        .then(data => {if(data.total > 0) 
-            document.getElementById("livebutton").style.backgroundColor = "red" })
         .catch(error => console.error('Error while fetching live URL!', error));
+        return result;
+}
+/**
+ * Reads the JoopTubeQueryJSONResponse from the 'live' channel at jupiter.tube for live
+ * show status and sets the CSS style background-color red for #livebutton is jupiter.tube
+ * is live, clears the background-color if live show count is at or below 0.
+ */
+async function doLiveHighlight(JoopTubeQueryJSONResponse) {
+    if(JoopTubeQueryJSONResponse.total > 0) {
+            document.getElementById("livebutton").style.backgroundColor = "red" }
+    else{
+            document.getElementByID("livebutton").style.backgroundColor = null };
+        
 }

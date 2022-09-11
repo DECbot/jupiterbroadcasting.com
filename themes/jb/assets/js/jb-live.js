@@ -95,6 +95,6 @@ async function doLiveHighlight(JoopTubeQueryJSONResponse) {
     if(JoopTubeQueryJSONResponse.total > 0) {
             document.getElementById("livebutton").style.backgroundColor = "red" }
     else{
-            document.getElementByID("livebutton").style.backgroundColor = null };
+            document.getElementById("livebutton").style.backgroundColor = null };
         
 }
